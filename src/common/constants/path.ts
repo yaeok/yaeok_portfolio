@@ -11,6 +11,6 @@ export const FILE_PATH = [
   },
 ]
 export const API_PATH = {
-  LINE: '/api/handler',
+  LINE: process.env.NEXT_PUBLIC_DOMAIN + '/api/line',
 }
 export const INDEX = '/'

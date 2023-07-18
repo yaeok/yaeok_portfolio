@@ -2,23 +2,19 @@
 
 import { useState } from 'react'
 
+import { API_PATH } from '@/common/constants/path'
 import { Button, Flex, Input } from '@/common/design'
 
 export default function PushNotificationScreen() {
   const [message, setMessage] = useState('')
   const onClickMethod = async () => {
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_DOMAIN ? process.env.NEXT_PUBLIC_DOMAIN : ''
-      }/api/line`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: message }),
-      }
-    )
+    const response = await fetch(API_PATH.LINE, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: message }),
+    })
     const data = await response.json()
     setMessage('')
   }
