@@ -8,7 +8,9 @@ export default function PushNotificationScreen() {
   const [message, setMessage] = useState('')
   const onClickMethod = async () => {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN!}/api/line`,
+      `${
+        process.env.NEXT_PUBLIC_DOMAIN ? process.env.NEXT_PUBLIC_DOMAIN : ''
+      }/api/line`,
       {
         method: 'POST',
         headers: {
