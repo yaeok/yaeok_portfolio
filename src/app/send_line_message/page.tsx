@@ -7,7 +7,7 @@ import { Button, Flex, Input } from '@/common/design'
 export default function PushNotificationScreen() {
   const [message, setMessage] = useState('')
   const onClickMethod = async () => {
-    const response = await fetch('http://localhost:3000/api/line', {
+    const response = await fetch('/api/line', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
