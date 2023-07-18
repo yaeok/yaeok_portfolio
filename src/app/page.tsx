@@ -13,18 +13,19 @@ export default function TopScreen() {
     <Flex flexDirection='column' width='100%' gap='15px' paddingY='20px'>
       <Heading size='md'>ホーム画面</Heading>
       <List>
-        {FILE_PATH.map((path, index) => (
+        {FILE_PATH.sort((a, b) => a.id - b.id).map((path, index) => (
           <ListItem
             bg='green.300'
             fontSize='15px'
+            marginY='5px'
             padding='10px 20px'
             borderRadius='10px'
             cursor='pointer'
             _hover={{ bg: 'green.200' }}
             key={index}
-            onClick={() => screenTransition(path.PUSH_LINE.path)}
+            onClick={() => screenTransition(path.path)}
           >
-            {path.PUSH_LINE.name}
+            {path.name}
           </ListItem>
         ))}
       </List>
