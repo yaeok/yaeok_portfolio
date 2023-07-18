@@ -5,9 +5,8 @@ import * as line from '@line/bot-sdk'
 import type { Message } from '@line/bot-sdk'
 
 const config = {
-  channelAccessToken:
-    '+NfE8iKTtzyjNPil/btBqUjXvrgnYHwE/J5waFHk9boTMll1GiA2OgUDslY9PP4hQnFX9IRtzwiCDf5leae1b4MkTWFsevWdDqmb13Lg7BilboCUmk+W68xwDAEFZKKc6ivg/3Pf2pFmLbpo/82GSQdB04t89/1O/w1cDnyilFU=',
-  channelSecret: 'de523d934ea962c5c3168ddef6bcb358',
+  channelAccessToken: process.env.NEXT_PUBLIC_LINE_CHANNEL_SECRET!,
+  channelSecret: process.env.NEXT_PUBLIC_LINE_ACCESS_TOKEN!,
 }
 
 const client = new line.Client(config)
@@ -16,11 +15,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST')
-    res.status(405).end('Method Not Allowed')
-    return
-  }
+  console.log(req.body.message)
   try {
     const message = req.body.message
 
@@ -28,7 +23,7 @@ export default async function handler(
       type: 'text',
       text: message,
     }
-    await client.pushMessage('U1c8ea8d1180c7ca26f00a907d2c465d1', postMessage)
+    await client.broadcast(postMessage)
 
     res
       .status(200)
