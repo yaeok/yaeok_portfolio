@@ -1,4 +1,7 @@
-export const validateLoginScreen = (email: string, password: string) => {
+export const validateLoginScreen = (
+  email: string,
+  password: string
+): string => {
   if (!email) {
     return 'メールアドレスを入力してください'
   }

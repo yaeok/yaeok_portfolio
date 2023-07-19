@@ -8,7 +8,7 @@ import { messageState } from '@/common/states/message'
 import { userState } from '@/common/states/user'
 import Loading from '@/components/loading.component'
 
-import { PORTFOLIO } from '../constants/path'
+import { AUTH, PORTFOLIO } from '../constants/path'
 
 type Props = {
   children: ReactNode
@@ -25,7 +25,7 @@ export const AuthGuard = ({ children }: Props) => {
   }
 
   if (user === null) {
-    router.replace('/auth')
+    router.replace(AUTH.path)
     if (!message) {
       toast({
         title: 'ログインしてください',

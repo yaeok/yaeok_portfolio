@@ -8,7 +8,7 @@ import { Button, Flex, Input } from '@/common/design'
 export default function PushNotificationScreen() {
   const [message, setMessage] = useState('')
   const onClickMethod = async () => {
-    const response = await fetch(API_PATH.LINE, {
+    const response = await fetch(API_PATH.SENDMESSAGE, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,6 +29,7 @@ export default function PushNotificationScreen() {
     >
       <Input
         placeholder='メッセージを入力してください'
+        value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
       <Button

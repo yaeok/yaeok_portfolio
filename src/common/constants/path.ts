@@ -1,5 +1,6 @@
 export const API_PATH = {
-  LINE: process.env.NEXT_PUBLIC_DOMAIN + '/api/line',
+  SENDMESSAGE: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/sendmessage',
+  CONNECTEDLINE: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/connected',
 }
 export const INDEX = { path: '/', name: 'index' }
 export const AUTH = { path: '/auth', name: 'auth' }
