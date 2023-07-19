@@ -1,9 +1,28 @@
 'use client'
 import NextLink from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useRecoilValue } from 'recoil'
 
-import { Box, Flex, Heading, HStack } from '@/common/design'
+import { AUTH, INDEX } from '@/common/constants/path'
+import { Box, Button, Flex, Heading, useToast } from '@/common/design'
+import { userState } from '@/common/states/user'
+import { logout } from '@/lib/firebase/apis/auth'
 
 export default function Header() {
+  const router = useRouter()
+  const toast = useToast()
+  const user = useRecoilValue(userState)
+  const onClickLogout = () => {
+    logout().then(() => {
+      toast({
+        title: 'ログアウトしました',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+      router.push(AUTH.path)
+    })
+  }
   return (
     <Box as='header' position={'sticky'} top={0} zIndex={'docked'}>
       <Flex
@@ -17,13 +36,22 @@ export default function Header() {
         borderColor='gray.200'
         align='center'
       >
-        <Flex flex={1} justify='space-between' maxW='5xl' mx='auto'>
+        <Flex flex={1} justify='space-between' maxW='container.xl' mx='auto'>
           <Heading as='h1' size='lg'>
-            <NextLink href='/'>brain</NextLink>
+            <NextLink href={INDEX.path}>brain</NextLink>
           </Heading>
-
-          <HStack spacing='4'></HStack>
+          {user === null ? null : (
+            <Button
+              bg='red.500'
+              color='white'
+              _hover={{ bg: 'red.400' }}
+              onClick={() => onClickLogout()}
+            >
+              ログアウト{user.username}
+            </Button>
+          )}
         </Flex>
+        <p>{user?.username}</p>
       </Flex>
     </Box>
   )

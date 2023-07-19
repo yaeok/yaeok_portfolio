@@ -1,4 +1,12 @@
-import { SERVICE, SKILLS } from '@/common/constants/portfolio'
+import Link from 'next/link'
+
+import {
+  CAREER,
+  LICENSE,
+  OUTPUT,
+  SERVICE,
+  SKILLS,
+} from '@/common/constants/portfolio'
 import {
   Flex,
   Heading,
@@ -25,15 +33,25 @@ export default function PortfolioScreen() {
         <Table variant='simple'>
           <Thead bg='white'>
             <Tr>
-              <Th width='200px'>年月日</Th>
+              <Th>社名</Th>
+              <Th>年月日</Th>
               <Th>内容</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>2022/04</Td>
-              <Td>テスト</Td>
-            </Tr>
+            {CAREER.map((career, index) => (
+              <Tr key={index}>
+                <Td>{career.company}</Td>
+                <Td>
+                  {career.entry} ~ {career.leave}
+                </Td>
+                <Td>
+                  {career.description.split('\n').map((value, index) => {
+                    return <p key={index}>{value}</p>
+                  })}
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </TableContainer>
@@ -80,18 +98,22 @@ export default function PortfolioScreen() {
       <Heading size='sm' bg='gray.200' padding='15px 20px' borderRadius='10px'>
         取得資格
       </Heading>
-      <List>
-        <ListItem>Python 3 エンジニア認定基礎試験</ListItem>
-        <ListItem>Salesforce 認定アドミニストレーター</ListItem>
-        <ListItem>Salesforce 認定 Platform デベロッパー</ListItem>
+      <List paddingX='20px'>
+        {LICENSE.map((license, index) => (
+          <ListItem key={index}>{license.name}</ListItem>
+        ))}
       </List>
       <Heading size='sm' bg='gray.200' padding='15px 20px' borderRadius='10px'>
         情報発信
       </Heading>
-      <List>
-        <ListItem>Github</ListItem>
-        <ListItem>Qiita</ListItem>
-        <ListItem>zenn</ListItem>
+      <List paddingX='20px'>
+        {OUTPUT.map((output, index) => (
+          <ListItem key={index}>
+            <Link href={output.link} target='_blank'>
+              {output.title}
+            </Link>
+          </ListItem>
+        ))}
       </List>
     </Flex>
   )

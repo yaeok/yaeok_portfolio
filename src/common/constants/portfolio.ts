@@ -1,3 +1,14 @@
+/** 経歴 */
+export const CAREER = [
+  {
+    company: '株式会社リボルブ沖縄',
+    entry: '2019/04',
+    leave: '2021/03',
+    description:
+      'Salesforceエンジニアとして2年間プロジェクトに所属しておりました。\n主にSalesforceの標準機能を使用したCRM開発とカスタマイズ開発を行っていました。\nSalesforce開発において、Apex, Visualforce, LWC, SOQL, Lightning Platformを使用しております。',
+  },
+]
+
 /** 開発サービス */
 export const SERVICE = [
   {
@@ -51,6 +62,38 @@ export const SKILLS = [
     name: 'Salesforce',
     experience: '約2年',
     isExperience: true,
-    remark: 'Apex, Visualforce, LWC, Aura, SOQL, SOSL, Lightning Platform',
+    remark: 'Apex, Visualforce, LWC, SOQL, Lightning Platform',
+  },
+]
+
+/** 取得資格 */
+export const LICENSE = [
+  {
+    name: 'Python 3 エンジニア認定基礎試験',
+    date: '2018/10',
+  },
+  {
+    name: 'Salesforce 認定アドミニストレーター',
+    date: '2019/04',
+  },
+  {
+    name: 'Salesforce 認定 Platform デベロッパー',
+    date: '2020/12',
+  },
+]
+
+/** 情報発信 */
+export const OUTPUT = [
+  {
+    title: 'Qiita',
+    link: 'https://qiita.com/yapp-dev',
+  },
+  {
+    title: 'Zenn',
+    link: 'https://zenn.dev/ko_hei',
+  },
+  {
+    title: 'Github',
+    link: 'https://github.com/yaeok',
   },
 ]

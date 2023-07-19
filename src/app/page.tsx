@@ -1,34 +1,16 @@
 'use client'
 import { useRouter } from 'next/navigation'
+import { useRecoilValue } from 'recoil'
 
-import { FILE_PATH } from '@/common/constants/path'
-import { Flex, Heading, List, ListItem } from '@/common/design'
+import { AUTH, HOME } from '@/common/constants/path'
+import { userState } from '@/common/states/user'
 
-export default function TopScreen() {
+export default function NavScreen() {
+  const user = useRecoilValue(userState)
   const router = useRouter()
-  const screenTransition = (path: string) => {
-    router.push(path)
+  if (user) {
+    router.replace(HOME.path)
+  } else {
+    router.replace(AUTH.path)
   }
-  return (
-    <Flex flexDirection='column' width='100%' gap='15px' paddingY='20px'>
-      <Heading size='md'>ホーム画面</Heading>
-      <List>
-        {FILE_PATH.sort((a, b) => a.id - b.id).map((path, index) => (
-          <ListItem
-            bg='green.300'
-            fontSize='15px'
-            marginY='5px'
-            padding='10px 20px'
-            borderRadius='10px'
-            cursor='pointer'
-            _hover={{ bg: 'green.200' }}
-            key={index}
-            onClick={() => screenTransition(path.path)}
-          >
-            {path.name}
-          </ListItem>
-        ))}
-      </List>
-    </Flex>
-  )
 }
