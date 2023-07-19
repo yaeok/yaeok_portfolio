@@ -38,7 +38,7 @@ export default function Header() {
       >
         <Flex flex={1} justify='space-between' maxW='container.xl' mx='auto'>
           <Heading as='h1' size='lg'>
-            <NextLink href={INDEX.path}>brain</NextLink>
+            <NextLink href={INDEX.path}>蓄積</NextLink>
           </Heading>
           {user === null ? null : (
             <Button

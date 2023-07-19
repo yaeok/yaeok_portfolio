@@ -15,7 +15,6 @@ export default function PushNotificationScreen() {
       },
       body: JSON.stringify({ message: message }),
     })
-    const data = await response.json()
     setMessage('')
   }
   return (
