@@ -33,8 +33,9 @@ export default function PushNotificationScreen() {
       />
       <Button
         width='100%'
-        bg='green.300'
-        _hover={{ bg: 'green.400' }}
+        color='white'
+        bg='green.400'
+        _hover={{ bg: 'green.500' }}
         onClick={() => onClickMethod()}
       >
         ラインを送信

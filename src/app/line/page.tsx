@@ -2,17 +2,16 @@
 import axios from 'axios'
 import { useSearchParams } from 'next/navigation'
 
-type Props = {
-  param: {
-    code: string
-  }
-}
-export default function Line({ param }: Props) {
+import { API_PATH } from '@/common/constants/path'
+import { Button, Flex } from '@/common/design'
+
+export default function Line() {
   const searchParams = useSearchParams()
   const code = searchParams!.get('code')
 
   const getToken = async () => {
     // アクセストークンの発行
+    console.log(code)
     var params = new URLSearchParams()
     params.append('grant_type', 'authorization_code')
     params.append('code', code as string)
@@ -48,16 +47,21 @@ export default function Line({ param }: Props) {
       },
     }
 
-    const result = await axios.get(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/api/push`,
-      data
-    )
+    const result = await axios.get(API_PATH.PUSH, data)
     console.log(result)
   }
 
   return (
-    <div>
-      <button onClick={getToken}>send message</button>
-    </div>
+    <Flex width='100%' justifyContent='center'>
+      <Button
+        color='white'
+        bg='green.400'
+        marginTop='20px'
+        _hover={{ bg: 'green.500' }}
+        onClick={() => getToken()}
+      >
+        メッセージ送信
+      </Button>
+    </Flex>
   )
 }

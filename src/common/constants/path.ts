@@ -1,6 +1,7 @@
 export const API_PATH = {
   SENDMESSAGE: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/sendmessage',
   CONNECTEDLINE: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/connected',
+  PUSH: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/push',
 }
 export const INDEX = { path: '/', name: 'index' }
 export const AUTH = { path: '/auth', name: 'auth' }
@@ -10,5 +11,6 @@ export const SEND_LINE_MESSAGE = {
   path: '/send_line_message',
   name: 'LINEメッセージ送信',
 }
+export const CONNECTED_LINE = { path: '/connected_line', name: 'LINE連携' }
 
-export const SHOW_HOME = [PORTFOLIO, SEND_LINE_MESSAGE]
+export const SHOW_HOME = [PORTFOLIO, SEND_LINE_MESSAGE, CONNECTED_LINE]

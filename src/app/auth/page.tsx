@@ -15,7 +15,6 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Text,
   useToast,
   VStack,
 } from '@/common/design'
@@ -50,7 +49,7 @@ export default function LoginScreen() {
         } else {
           toast({
             title: res.message,
-            status: 'success',
+            status: 'error',
             duration: 3000,
             isClosable: true,
           })

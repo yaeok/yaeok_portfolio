@@ -3,6 +3,16 @@ import { doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
 
 import { auth, db } from '@/lib/firebase/config'
 
+type FirebaseError = {
+  code: string
+  message: string
+  name: string
+}
+
+const isFirebaseError = (e: Error): e is FirebaseError => {
+  return 'code' in e && 'message' in e
+}
+
 /**
  * ログイン処理
  * @param email
@@ -11,7 +21,7 @@ import { auth, db } from '@/lib/firebase/config'
 export const signInWithEmail = async (args: {
   email: string
   password: string
-}) => {
+}): Promise<{ result: boolean; message: string }> => {
   let result = { result: false, message: 'ログインに失敗しました' }
   try {
     const user = await signInWithEmailAndPassword(
@@ -32,7 +42,21 @@ export const signInWithEmail = async (args: {
       result = { result: true, message: 'ログインに成功しました' }
     }
   } catch (error) {
-    result = { result: false, message: 'ログインに失敗しました' }
+    if (
+      error instanceof Error &&
+      isFirebaseError(error) &&
+      error.code === 'auth/user-not-found'
+    ) {
+      result = { result: false, message: 'ユーザが見つかりませんでした' }
+    } else if (
+      error instanceof Error &&
+      isFirebaseError(error) &&
+      error.code === 'auth/wrong-password'
+    ) {
+      result = { result: false, message: 'パスワードが間違っています' }
+    } else {
+      result = { result: false, message: 'ログインに失敗しました' }
+    }
   }
   return result
 }
