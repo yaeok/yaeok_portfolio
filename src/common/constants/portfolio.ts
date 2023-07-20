@@ -20,14 +20,14 @@ export const SERVICE = [
   {
     title: 'sengyo',
     devlang: 'flutter',
-    link: 'https://www.shikaron.com/',
+    link: 'https://apps.apple.com/jp/app/sengyo-%E6%8D%8C%E3%81%84%E3%81%9F%E9%AD%9A%E3%82%92%E8%A6%8B%E3%81%9B%E5%90%88%E3%81%86%E3%82%A2%E3%83%97%E3%83%AA/id6450609224',
     description:
       'お魚をさばいて、みんなに自慢するアプリ。さばいた魚の写真や料理をした写真をアップすることができます',
   },
   {
     title: 'kensubu',
     devlang: 'flutter',
-    link: 'https://www.shikaron.com/',
+    link: 'https://apps.apple.com/jp/app/%E5%89%A3%E3%81%99%E3%81%B6/id1567392549',
     description: '剣道の素振りの回数を競うアプリです',
   },
 ]
