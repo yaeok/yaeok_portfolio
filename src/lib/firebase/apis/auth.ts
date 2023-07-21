@@ -1,6 +1,7 @@
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
 
+import { AuthResult } from '@/common/models/auth.type'
 import { auth, db } from '@/lib/firebase/config'
 
 type FirebaseError = {
@@ -21,8 +22,8 @@ const isFirebaseError = (e: Error): e is FirebaseError => {
 export const signInWithEmail = async (args: {
   email: string
   password: string
-}): Promise<{ result: boolean; message: string }> => {
-  let result = { result: false, message: 'ログインに失敗しました' }
+}): Promise<AuthResult> => {
+  let result: AuthResult = { isSuccess: false, message: '' }
   try {
     const user = await signInWithEmailAndPassword(
       auth,
@@ -39,7 +40,7 @@ export const signInWithEmail = async (args: {
     })
 
     if (user) {
-      result = { result: true, message: 'ログインに成功しました' }
+      result = { isSuccess: true, message: 'ログインに成功しました' }
     }
   } catch (error) {
     if (
@@ -47,15 +48,15 @@ export const signInWithEmail = async (args: {
       isFirebaseError(error) &&
       error.code === 'auth/user-not-found'
     ) {
-      result = { result: false, message: 'ユーザが見つかりませんでした' }
+      result = { isSuccess: false, message: 'ユーザが見つかりませんでした' }
     } else if (
       error instanceof Error &&
       isFirebaseError(error) &&
       error.code === 'auth/wrong-password'
     ) {
-      result = { result: false, message: 'パスワードが間違っています' }
+      result = { isSuccess: false, message: 'パスワードが間違っています' }
     } else {
-      result = { result: false, message: 'ログインに失敗しました' }
+      result = { isSuccess: false, message: 'ログインに失敗しました' }
     }
   }
   return result
@@ -64,12 +65,16 @@ export const signInWithEmail = async (args: {
 /**
  * ログアウト処理
  */
-export const logout = async () => {
+export const logout = async (): Promise<AuthResult> => {
+  let result: AuthResult = { isSuccess: false, message: '' }
+
   await signOut(auth)
     .then(() => {
-      console.log('ログアウトしました')
+      result = { isSuccess: true, message: 'ログアウトしました' }
     })
     .catch((error) => {
-      console.log(`ログアウト時にエラーが発生しました (${error})`)
+      result = { isSuccess: false, message: error.message }
     })
+
+  return result
 }

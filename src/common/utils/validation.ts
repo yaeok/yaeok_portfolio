@@ -1,3 +1,4 @@
+// ログイン画面のバリデーション
 export const validateLoginScreen = (
   email: string,
   password: string

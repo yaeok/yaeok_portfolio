@@ -15,21 +15,19 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  useToast,
   VStack,
 } from '@/common/design'
 import { messageState } from '@/common/states/message'
 import { validateLoginScreen } from '@/common/utils/validation'
+import Toast from '@/components/toast.component'
 import { signInWithEmail } from '@/lib/firebase/apis/auth'
 
 export default function LoginScreen() {
   const { handleSubmit, register } = useForm()
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState<boolean>(false)
   const setMessage = useSetRecoilState(messageState)
-  const toast = useToast()
   const router = useRouter()
 
-  const handleClick = () => setShow(!show)
   const onSubmit = handleSubmit(async (data) => {
     const error = validateLoginScreen(data.email, data.password)
     if (!error) {
@@ -37,31 +35,25 @@ export default function LoginScreen() {
         email: data.email,
         password: data.password,
       }).then((res) => {
-        if (res.result) {
+        if (res.isSuccess) {
           setMessage(true)
-          toast({
+          Toast({
             title: res.message,
             status: 'success',
-            duration: 3000,
-            isClosable: true,
           })
           router.push(HOME.path)
         } else {
-          toast({
+          Toast({
             title: res.message,
             status: 'error',
-            duration: 3000,
-            isClosable: true,
           })
         }
       })
     } else {
-      toast({
-        title: 'ログイン失敗',
-        description: error,
+      Toast({
+        title: 'ログインに失敗しました',
         status: 'error',
-        duration: 3000,
-        isClosable: true,
+        description: error,
       })
     }
   })
@@ -94,7 +86,7 @@ export default function LoginScreen() {
                   {...register('password')}
                 />
                 <InputRightElement width='4.5rem'>
-                  <Button h='1.75rem' size='sm' onClick={handleClick}>
+                  <Button h='1.75rem' size='sm' onClick={() => setShow(!show)}>
                     {show ? 'Hide' : 'Show'}
                   </Button>
                 </InputRightElement>

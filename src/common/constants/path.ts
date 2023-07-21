@@ -11,6 +11,16 @@ export const SEND_LINE_MESSAGE = {
   path: '/send_line_message',
   name: 'LINEメッセージ送信',
 }
+export const CONNECTED_SPRING_BOOT = {
+  path: '/connected_spring_boot',
+  name: 'SpringBoot連携',
+}
+
 export const CONNECTED_LINE = { path: '/connected_line', name: 'LINE連携' }
 
-export const SHOW_HOME = [PORTFOLIO, SEND_LINE_MESSAGE, CONNECTED_LINE]
+export const SHOW_HOME = [
+  PORTFOLIO,
+  SEND_LINE_MESSAGE,
+  CONNECTED_LINE,
+  CONNECTED_SPRING_BOOT,
+]

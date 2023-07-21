@@ -6,7 +6,7 @@ import { API_PATH } from '@/common/constants/path'
 import { Button, Flex, Input } from '@/common/design'
 
 export default function PushNotificationScreen() {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState<string>('')
   const onClickMethod = async () => {
     const response = await fetch(API_PATH.SENDMESSAGE, {
       method: 'POST',
