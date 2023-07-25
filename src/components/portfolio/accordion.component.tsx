@@ -23,7 +23,7 @@ type Props = {
 
 export default function AccordionComponent(props: Props) {
   return (
-    <Accordion allowToggle>
+    <Accordion>
       <AccordionItem>
         <h2>
           <AccordionButton>
@@ -44,6 +44,7 @@ export default function AccordionComponent(props: Props) {
               bg='orange.300'
               _hover={{ bg: 'orange.200' }}
               href={props.link}
+              target='_blank'
             >
               サービスへ移動する
             </Button>

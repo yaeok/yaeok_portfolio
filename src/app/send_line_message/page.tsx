@@ -6,16 +6,15 @@ import { API_PATH } from '@/common/constants/path'
 import { Button, Flex, Input } from '@/common/design'
 
 export default function PushNotificationScreen() {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState<string>('')
   const onClickMethod = async () => {
-    const response = await fetch(API_PATH.LINE, {
+    const response = await fetch(API_PATH.SENDMESSAGE, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ message: message }),
     })
-    const data = await response.json()
     setMessage('')
   }
   return (
@@ -29,12 +28,14 @@ export default function PushNotificationScreen() {
     >
       <Input
         placeholder='メッセージを入力してください'
+        value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
       <Button
         width='100%'
-        bg='green.300'
-        _hover={{ bg: 'green.400' }}
+        color='white'
+        bg='green.400'
+        _hover={{ bg: 'green.500' }}
         onClick={() => onClickMethod()}
       >
         ラインを送信

@@ -13,14 +13,24 @@ export default function Header() {
   const toast = useToast()
   const user = useRecoilValue(userState)
   const onClickLogout = () => {
-    logout().then(() => {
-      toast({
-        title: 'ログアウトしました',
-        status: 'success',
-        duration: 3000,
-        isClosable: true,
-      })
-      router.push(AUTH.path)
+    logout().then((res) => {
+      if (res.isSuccess) {
+        toast({
+          title: res.message,
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+        router.push(AUTH.path)
+      } else {
+        toast({
+          title: 'ログアウトに失敗しました',
+          description: res.message,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        })
+      }
     })
   }
   return (
@@ -38,7 +48,7 @@ export default function Header() {
       >
         <Flex flex={1} justify='space-between' maxW='container.xl' mx='auto'>
           <Heading as='h1' size='lg'>
-            <NextLink href={INDEX.path}>brain</NextLink>
+            <NextLink href={INDEX.path}>蓄積</NextLink>
           </Heading>
           {user === null ? null : (
             <Button
