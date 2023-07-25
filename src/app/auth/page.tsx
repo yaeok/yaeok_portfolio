@@ -34,7 +34,7 @@ export default function LoginScreen() {
   const onSubmit = handleSubmit(async (data) => {
     setLoading(true)
     const error = validateLoginScreen(data.email, data.password)
-    if (!error) {
+    if (error.isSuccess) {
       await signInWithEmail({
         email: data.email,
         password: data.password,
@@ -60,8 +60,7 @@ export default function LoginScreen() {
       })
     } else {
       toast({
-        title: 'ログインに失敗しました',
-        description: error,
+        title: error.message,
         status: 'error',
         duration: 3000,
         isClosable: true,
