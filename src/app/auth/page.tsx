@@ -15,11 +15,12 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  useToast,
   VStack,
 } from '@/common/design'
 import { messageState } from '@/common/states/message'
 import { validateLoginScreen } from '@/common/utils/validation'
-import Toast from '@/components/toast.component'
+import Loading from '@/components/loading.component'
 import { signInWithEmail } from '@/lib/firebase/apis/auth'
 
 export default function LoginScreen() {
@@ -27,8 +28,11 @@ export default function LoginScreen() {
   const [show, setShow] = useState<boolean>(false)
   const setMessage = useSetRecoilState(messageState)
   const router = useRouter()
+  const toast = useToast()
+  const [loading, setLoading] = useState<boolean>(false)
 
   const onSubmit = handleSubmit(async (data) => {
+    setLoading(true)
     const error = validateLoginScreen(data.email, data.password)
     if (!error) {
       await signInWithEmail({
@@ -37,28 +41,37 @@ export default function LoginScreen() {
       }).then((res) => {
         if (res.isSuccess) {
           setMessage(true)
-          Toast({
+          toast({
             title: res.message,
             status: 'success',
+            duration: 3000,
+            isClosable: true,
           })
           router.push(HOME.path)
         } else {
-          Toast({
+          toast({
             title: res.message,
             status: 'error',
+            duration: 3000,
+            isClosable: true,
           })
         }
+        setLoading(false)
       })
     } else {
-      Toast({
+      toast({
         title: 'ログインに失敗しました',
-        status: 'error',
         description: error,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
       })
     }
   })
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <Flex
       flexDirection='column'
       width='100%'

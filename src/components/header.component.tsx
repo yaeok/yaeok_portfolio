@@ -4,27 +4,31 @@ import { useRouter } from 'next/navigation'
 import { useRecoilValue } from 'recoil'
 
 import { AUTH, INDEX } from '@/common/constants/path'
-import { Box, Button, Flex, Heading } from '@/common/design'
+import { Box, Button, Flex, Heading, useToast } from '@/common/design'
 import { userState } from '@/common/states/user'
-import Toast from '@/components/toast.component'
 import { logout } from '@/lib/firebase/apis/auth'
 
 export default function Header() {
   const router = useRouter()
+  const toast = useToast()
   const user = useRecoilValue(userState)
   const onClickLogout = () => {
     logout().then((res) => {
       if (res.isSuccess) {
-        Toast({
+        toast({
           title: res.message,
           status: 'success',
+          duration: 3000,
+          isClosable: true,
         })
         router.push(AUTH.path)
       } else {
-        Toast({
+        toast({
           title: 'ログアウトに失敗しました',
-          status: 'error',
           description: res.message,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
         })
       }
     })

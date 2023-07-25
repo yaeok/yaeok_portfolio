@@ -24,6 +24,7 @@ export default async function handler(
       text: message,
     }
     await client.broadcast(postMessage)
+    // await client.pushMessage('U1c8ea8d1180c7ca26f00a907d2c465d1', postMessage)
 
     res
       .status(200)
