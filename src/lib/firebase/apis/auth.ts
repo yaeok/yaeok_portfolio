@@ -3,6 +3,7 @@ import { doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
 
 import { AuthResult } from '@/common/models/auth.type'
 import { auth, db } from '@/lib/firebase/config'
+import liff from '@line/liff'
 
 type FirebaseError = {
   code: string
@@ -31,9 +32,12 @@ export const signInWithEmail = async (args: {
       args.password
     ).then((userCredential) => {
       const docRef = doc(db, 'users', userCredential.user.uid)
+      const userInfo = liff.getContext()
+      const lineId = userInfo?.userId
       updateDoc(docRef, {
         uid: userCredential.user.uid,
         username: userCredential.user.email?.split('@')[0],
+        lineId: lineId,
         login_at: serverTimestamp(),
       })
       return userCredential.user
