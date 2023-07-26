@@ -16,10 +16,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <AuthGuard>
+    <>
       <Header />
       <Main>{children}</Main>
       <Footer />
-    </AuthGuard>
+    </>
   )
 }
