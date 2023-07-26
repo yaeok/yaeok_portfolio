@@ -1,4 +1,14 @@
-import { addDoc, collection, doc, getDocs, updateDoc } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+  updateDoc,
+  where,
+} from 'firebase/firestore'
 
 import {
   CustomerForm,
@@ -29,7 +39,11 @@ export const registerCustomer = async (customers: CustomerForm[]) => {
       }
       await addDoc(colRef, postCustomer)
         .then(async (docRef) => {
-          await updateDoc(docRef, { id: docRef.id }).then(() => {
+          await updateDoc(docRef, {
+            id: docRef.id,
+            createdAt: serverTimestamp(),
+            deleteFlg: false,
+          }).then(() => {
             console.log('Document successfully written!')
           })
         })
@@ -46,6 +60,7 @@ export const registerCustomer = async (customers: CustomerForm[]) => {
  */
 export const getAllCustomers = async () => {
   const colRef = collection(db, 'customers')
+  const q = query(colRef, where('deleteFlg', '==', false), orderBy('createdAt'))
   const snapshot = await getDocs(colRef)
   const customers = snapshot.docs.map((doc) => {
     const customer: CustomerGet = {
