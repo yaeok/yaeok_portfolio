@@ -1,3 +1,5 @@
+import { CustomerForm } from '@/common/models/customer.type'
+
 // バリデーションタイプ
 type Validate = {
   isSuccess: boolean
@@ -18,20 +20,47 @@ export const validateLoginScreen = (
   return { isSuccess: true, message: '' }
 }
 
-// カスタムフォーム画面のバリデーション
-export const validateContentScreen = (
-  title: string,
-  content: string[]
+// お客さま登録画面のバリデーション
+export const validateCustomerPostForm = (
+  customers: CustomerForm[]
 ): Validate => {
-  if (!title) {
-    return { isSuccess: false, message: 'タイトルを入力してください' }
-  }
-  if (content.length !== 0) {
-    content.forEach((c) => {
-      if (c === '') {
-        return { isSuccess: false, message: '内容を入力してください' }
+  let result = { isSuccess: true, message: '' }
+  customers.forEach((customer) => {
+    if (!customer.lastName) {
+      result = {
+        isSuccess: false,
+        message: `${customer.formId}：姓を入力してください`,
       }
-    })
-  }
-  return { isSuccess: true, message: '' }
+      return result
+    }
+    if (!customer.firstName) {
+      result = {
+        isSuccess: false,
+        message: `${customer.formId}：名を入力してください`,
+      }
+      return result
+    }
+    if (!customer.email) {
+      result = {
+        isSuccess: false,
+        message: `${customer.formId}：メールアドレスを入力してください`,
+      }
+      return result
+    }
+    if (!customer.phoneNumber) {
+      result = {
+        isSuccess: false,
+        message: `${customer.formId}：電話番号を入力してください`,
+      }
+      return result
+    }
+    if (!customer.company) {
+      result = {
+        isSuccess: false,
+        message: `${customer.formId}：会社名を入力してください`,
+      }
+      return result
+    }
+  })
+  return result
 }

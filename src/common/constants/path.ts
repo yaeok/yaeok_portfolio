@@ -19,7 +19,7 @@ export const CONNECTED_SPRING_BOOT = {
   name: 'SpringBoot連携',
 }
 export const CONNECTED_LINE = { path: '/connected_line', name: 'LINE連携' }
-export const CUSTOM_FORM = { path: '/custom_form', name: 'カスタムフォーム' }
+export const TABLE_FORM = { path: '/customer', name: 'お客一覧' }
 
 /** ホーム画面に表示するボタン */
 export const SHOW_HOME = [
@@ -27,5 +27,5 @@ export const SHOW_HOME = [
   SEND_LINE_MESSAGE,
   CONNECTED_LINE,
   CONNECTED_SPRING_BOOT,
-  CUSTOM_FORM,
+  TABLE_FORM,
 ]
