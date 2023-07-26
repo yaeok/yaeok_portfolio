@@ -1,4 +1,3 @@
-import { AuthGuard } from '@/common/providers/auth_guard'
 import Footer from '@/components/footer.component'
 import Header from '@/components/header.component'
 import Main from '@/components/main.component'
