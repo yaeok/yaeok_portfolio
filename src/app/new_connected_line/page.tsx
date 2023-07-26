@@ -7,7 +7,7 @@ import { liff } from '@line/liff'
 export default function NewConnectedLineScreen() {
   const [userId, setUserId] = useState('')
   useEffect(() => {
-    liff.init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID! }).then(() => {
+    liff.init({ liffId: '2000173986-kGY1gly6' }).then(() => {
       if (liff.isLoggedIn()) {
         liff.ready.then(() => {
           const context = liff.getContext()
