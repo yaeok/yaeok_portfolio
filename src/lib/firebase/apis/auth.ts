@@ -32,13 +32,9 @@ export const signInWithEmail = async (args: {
       args.password
     ).then((userCredential) => {
       const docRef = doc(db, 'users', userCredential.user.uid)
-      const userInfo = liff.getContext()
-      const lineId = userInfo?.userId
-      console.log('lineId', lineId)
       updateDoc(docRef, {
         uid: userCredential.user.uid,
         username: userCredential.user.email?.split('@')[0],
-        lineId: lineId,
         login_at: serverTimestamp(),
       })
       return userCredential.user
