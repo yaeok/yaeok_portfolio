@@ -3,7 +3,6 @@ import { doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
 
 import { AuthResult } from '@/common/models/auth.type'
 import { auth, db } from '@/lib/firebase/config'
-import liff from '@line/liff'
 
 type FirebaseError = {
   code: string
