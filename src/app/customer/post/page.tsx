@@ -14,6 +14,7 @@ import {
   useToast,
 } from '@/common/design'
 import { CustomerForm } from '@/common/models/customer.type'
+import { validateCustomerPostForm } from '@/common/utils/validation'
 import CustomerPostFormComponent from '@/components/customer_form/customer_post_form'
 import { registerCustomer } from '@/lib/firebase/apis/customer'
 
@@ -59,16 +60,27 @@ export default function CustomerPostScreen() {
     setCustomers(customers.slice(0, customers.length - 1))
   }
   const onClickAllRegister = () => {
-    registerCustomer(customers).then(() => {
+    const result = validateCustomerPostForm(customers)
+    if (result.isSuccess) {
+      registerCustomer(customers).then(() => {
+        toast({
+          title: '登録完了',
+          description: '顧客情報を登録しました。',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        })
+        router.back()
+      })
+    } else {
       toast({
-        title: '登録完了',
-        description: '顧客情報を登録しました。',
-        status: 'success',
+        title: '入力内容を確認してください',
+        description: result.message,
+        status: 'error',
         duration: 3000,
         isClosable: true,
       })
-      router.back()
-    })
+    }
   }
   return (
     <Flex flexDirection='column' padding='10px'>
