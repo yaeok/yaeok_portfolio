@@ -14,9 +14,7 @@ export default function NewConnectedLineScreen() {
           setUserId(context?.userId ?? '取得できませんでした')
         })
       } else {
-        liff.login({
-          redirectUri: `${process.env.NEXT_PUBLIC_DOMAIN}/new_connected_line`,
-        })
+        liff.login()
       }
     })
   }, [])
