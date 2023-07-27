@@ -15,16 +15,17 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.body.message)
+  console.log(req.body)
   try {
+    const lineId: string = req.body.lineId
     const message = req.body.message
 
     const postMessage: Message = {
       type: 'text',
       text: message,
     }
-    // await client.broadcast(postMessage)
     await client.pushMessage('U1c8ea8d1180c7ca26f00a907d2c465d1', postMessage)
+    await client.pushMessage(lineId, postMessage)
 
     res
       .status(200)

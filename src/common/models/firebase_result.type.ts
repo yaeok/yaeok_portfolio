@@ -1,4 +1,4 @@
-export type ContentResult = {
+export type FirebaseResult = {
   isSuccess: boolean
   message: string
 }

@@ -4,18 +4,24 @@ import { useState } from 'react'
 
 import { API_PATH } from '@/common/constants/path'
 import { Button, Flex, Input } from '@/common/design'
+import { getLineIdByUid } from '@/lib/firebase/apis/user'
 
-export default function PushNotificationScreen() {
+export default function LinePushMessageScreen() {
   const [message, setMessage] = useState<string>('')
   const onClickMethod = async () => {
-    const response = await fetch(API_PATH.SENDMESSAGE, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ message: message }),
+    await getLineIdByUid().then(async (res) => {
+      console.log(res)
+      if (res != null) {
+        await fetch(API_PATH.PUSHMESSAGE, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ lineId: res, message: message }),
+        })
+        setMessage('')
+      }
     })
-    setMessage('')
   }
   return (
     <Flex
@@ -38,7 +44,7 @@ export default function PushNotificationScreen() {
         _hover={{ bg: 'green.500' }}
         onClick={() => onClickMethod()}
       >
-        ラインを送信
+        個人ラインを送信
       </Button>
     </Flex>
   )
