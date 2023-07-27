@@ -1,8 +1,7 @@
 /** APIのエンドポイント */
 export const API_PATH = {
-  SENDMESSAGE: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/sendmessage',
-  CONNECTEDLINE: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/connected',
-  PUSH: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/push',
+  BROADCAST: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/sent_broadcast',
+  PUSHMESSAGE: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/push_message',
 }
 
 /** ページ名・ルート名 */
@@ -10,27 +9,27 @@ export const INDEX = { path: '/', name: 'index' }
 export const AUTH = { path: '/auth', name: 'auth' }
 export const HOME = { path: '/home', name: 'home' }
 export const PORTFOLIO = { path: '/portfolio', name: 'ポートフォリオ' }
-export const SEND_LINE_MESSAGE = {
-  path: '/send_line_message',
-  name: 'LINEメッセージ送信',
+export const LINE_BROADCAST = {
+  path: '/line_broadcast',
+  name: 'LINE：Broadcast送信',
 }
 export const CONNECTED_SPRING_BOOT = {
   path: '/connected_spring_boot',
-  name: 'SpringBoot連携',
+  name: 'Spring-Boot：API連携',
 }
-export const CONNECTED_LINE = { path: '/connected_line', name: 'LINE連携' }
-export const TABLE_FORM = { path: '/customer', name: 'お客さま一覧' }
-export const NEW_CONNECTED_LINE = {
-  path: '/new_connected_line',
-  name: '新規LINE連携',
+export const CUSTOMER_LIST = { path: '/customer', name: 'お客さま一覧' }
+export const LINE_CONNECT = { path: '/line_login', name: 'LINE：ユーザ連携' }
+export const LINE_PUSHMESSAGE = {
+  path: '/line_pushmessage',
+  name: 'LINE：メッセージ送信',
 }
 
 /** ホーム画面に表示するボタン */
 export const SHOW_HOME = [
   PORTFOLIO,
-  SEND_LINE_MESSAGE,
-  CONNECTED_LINE,
   CONNECTED_SPRING_BOOT,
-  TABLE_FORM,
-  NEW_CONNECTED_LINE,
+  LINE_BROADCAST,
+  LINE_CONNECT,
+  LINE_PUSHMESSAGE,
+  CUSTOMER_LIST,
 ]

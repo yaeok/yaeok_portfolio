@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore'
+import { doc, serverTimestamp, updateDoc } from 'firebase/firestore'
 
 import { AuthResult } from '@/common/models/auth.type'
 import { auth, db } from '@/lib/firebase/config'
@@ -34,7 +34,7 @@ export const signInWithEmail = async (args: {
       updateDoc(docRef, {
         uid: userCredential.user.uid,
         username: userCredential.user.email?.split('@')[0],
-        login_at: serverTimestamp(),
+        loginAt: serverTimestamp(),
       })
       return userCredential.user
     })

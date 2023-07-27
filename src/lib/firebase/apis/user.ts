@@ -1,7 +1,8 @@
-import { doc, onSnapshot } from 'firebase/firestore'
+import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore'
 
+import { FirebaseResult } from '@/common/models/firebase_result.type'
 import { User } from '@/common/models/user.type'
-import { db } from '@/lib/firebase/config'
+import { auth, db } from '@/lib/firebase/config'
 
 export const getUserInfoByUid = async (args: { uid: string }) => {
   const docRef = doc(db, 'users', args.uid)
@@ -31,4 +32,44 @@ export const getUserInfoByUid = async (args: { uid: string }) => {
       unsubscribe()
     }
   })
+}
+
+/**
+ * LINEのユーザ情報と紐付ける
+ * @param lineId
+ */
+export const updateUserInfoByLineId = async (
+  lineId: string
+): Promise<FirebaseResult> => {
+  let result = { isSuccess: false, message: '' }
+  const uid = auth.currentUser?.uid!
+  const docRef = doc(db, 'users', uid)
+  await updateDoc(docRef, {
+    lineId: lineId,
+  })
+    .then(() => {
+      result = { isSuccess: true, message: 'LINEとの紐付けに成功しました' }
+    })
+    .catch((error) => {
+      result = { isSuccess: false, message: error.message }
+    })
+
+  return result
+}
+
+/**
+ * ログインユーザのLINE IDを取得する
+ * @returns Promise<string>
+ */
+export const getLineIdByUid = async (): Promise<string> => {
+  let result = ''
+  const uid = auth.currentUser?.uid!
+  const docRef = doc(db, 'users', uid)
+  await getDoc(docRef).then((doc) => {
+    if (doc.exists()) {
+      const userData = doc.data()
+      result = userData.lineId
+    }
+  })
+  return result
 }
