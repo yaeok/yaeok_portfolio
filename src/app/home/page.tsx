@@ -11,7 +11,7 @@ export default function HomeScreen() {
       flexDirection='column'
       justifyContent='center'
       gap='10px'
-      marginX='100px'
+      marginX={{ base: '10px', md: '100px' }}
     >
       <Heading size='lg'>ホーム画面</Heading>
       <List paddingY='10px'>

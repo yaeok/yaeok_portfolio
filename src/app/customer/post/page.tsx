@@ -62,15 +62,25 @@ export default function CustomerPostScreen() {
   const onClickAllRegister = () => {
     const result = validateCustomerPostForm(customers)
     if (result.isSuccess) {
-      registerCustomer(customers).then(() => {
-        toast({
-          title: '登録完了',
-          description: '顧客情報を登録しました。',
-          status: 'success',
-          duration: 3000,
-          isClosable: true,
-        })
-        router.back()
+      registerCustomer(customers).then((res) => {
+        if (res.isSuccess) {
+          toast({
+            title: '登録完了',
+            description: res.message,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          })
+          router.back()
+        } else {
+          toast({
+            title: '登録失敗',
+            description: res.message,
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          })
+        }
       })
     } else {
       toast({

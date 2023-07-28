@@ -15,7 +15,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log(req.body)
   try {
     const lineId: string = req.body.lineId
     const message = req.body.message
@@ -24,7 +23,6 @@ export default async function handler(
       type: 'text',
       text: message,
     }
-    await client.pushMessage('U1c8ea8d1180c7ca26f00a907d2c465d1', postMessage)
     await client.pushMessage(lineId, postMessage)
 
     res
