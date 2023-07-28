@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSetRecoilState } from 'recoil'
 
-import { HOME } from '@/common/constants/path'
+import { HOME, PORTFOLIO } from '@/common/constants/path'
 import {
   Box,
   Button,
@@ -119,7 +119,7 @@ export default function LoginScreen() {
                 width='100%'
                 bg='white'
                 _hover={{ bg: 'red.400', color: 'white' }}
-                href='/portfolio'
+                href={PORTFOLIO.path}
               >
                 ログインせずに閲覧する
               </Button>

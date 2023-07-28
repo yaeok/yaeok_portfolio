@@ -20,7 +20,6 @@ export default function ConnectedAPI() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setResult(data)
       })
   }
@@ -45,7 +44,6 @@ export default function ConnectedAPI() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setResult(data)
       })
   }

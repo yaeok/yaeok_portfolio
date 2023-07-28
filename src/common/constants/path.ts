@@ -1,5 +1,3 @@
-import { type } from 'os'
-
 /** APIのエンドポイント */
 export const API_PATH = {
   BROADCAST: process.env.NEXT_PUBLIC_DOMAIN + '/api/line/sent_broadcast',
@@ -9,6 +7,7 @@ export const API_PATH = {
 /** ページ名・ルート名 */
 export const INDEX = { path: '/', name: 'ルート' }
 export const AUTH = { path: '/auth', name: 'ログイン画面' }
+export const SIGNUP = { path: '/signup', name: '新規登録画面' }
 export const HOME = { path: '/home', name: 'ホーム画面' }
 /** ポートフォリオ */
 export const PORTFOLIO = {

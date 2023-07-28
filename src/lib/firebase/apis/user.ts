@@ -4,6 +4,10 @@ import { FirebaseResult } from '@/common/models/firebase_result.type'
 import { User } from '@/common/models/user.type'
 import { auth, db } from '@/lib/firebase/config'
 
+/**
+ * ユーザ情報の取得
+ * @param uid
+ */
 export const getUserInfoByUid = async (args: { uid: string }) => {
   const docRef = doc(db, 'users', args.uid)
   return new Promise<User>((resolve, reject) => {

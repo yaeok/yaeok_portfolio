@@ -10,7 +10,6 @@ export default function LinePushMessageScreen() {
   const [message, setMessage] = useState<string>('')
   const onClickMethod = async () => {
     await getLineIdByUid().then(async (res) => {
-      console.log(res)
       if (res != null) {
         await fetch(API_PATH.PUSHMESSAGE, {
           method: 'POST',

@@ -15,6 +15,7 @@ import {
   CustomerGet,
   CustomerPost,
 } from '@/common/models/customer.type'
+import { FirebaseResult } from '@/common/models/firebase_result.type'
 import { separate_genders } from '@/common/utils/separate_gender'
 import { db } from '@/lib/firebase/config'
 
@@ -22,7 +23,10 @@ import { db } from '@/lib/firebase/config'
  * お客さま情報を登録
  * @param customers
  */
-export const registerCustomer = async (customers: CustomerForm[]) => {
+export const registerCustomer = async (
+  customers: CustomerForm[]
+): Promise<FirebaseResult> => {
+  let result = { isSuccess: false, message: '' }
   const colRef = collection(db, 'customers')
   await Promise.all(
     customers.map(async (customer) => {
@@ -44,14 +48,15 @@ export const registerCustomer = async (customers: CustomerForm[]) => {
             createdAt: serverTimestamp(),
             deleteFlg: false,
           }).then(() => {
-            console.log('Document successfully written!')
+            result = { isSuccess: true, message: '正常に登録されました' }
           })
         })
         .catch((error) => {
-          console.error('Error writing document: ', error.message)
+          result = { isSuccess: false, message: error.message }
         })
     })
   )
+  return result
 }
 
 /**
@@ -87,9 +92,11 @@ export const getAllCustomers = async () => {
 export const updateCountUp = async (args: {
   id: string
   afterCounter: number
-}) => {
+}): Promise<FirebaseResult> => {
+  let result = { isSuccess: false, message: '' }
   const docRef = doc(db, 'customers', args.id)
   await updateDoc(docRef, { counter: args.afterCounter }).then(() => {
-    console.log('Document successfully written!')
+    result = { isSuccess: true, message: '' }
   })
+  return result
 }
