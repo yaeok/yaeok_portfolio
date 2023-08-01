@@ -1,8 +1,10 @@
 'use client'
 
+import NextLink from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+import { CUSTOMER_LIST } from '@/common/constants/path'
 import {
   Button,
   Flex,
@@ -45,7 +47,9 @@ export default function CustomerListScreen() {
   ) : (
     <Flex flexDirection='column' padding='10px'>
       <Flex paddingY='10px' justifyContent='end'>
-        <Button onClick={() => router.push('customer/post')}>登録</Button>
+        <Button as={NextLink} href={CUSTOMER_LIST.post}>
+          新規登録
+        </Button>
       </Flex>
       <TableContainer>
         <Table>

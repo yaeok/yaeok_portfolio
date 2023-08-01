@@ -1,4 +1,4 @@
-import { CustomerForm } from '@/common/models/customer.type'
+import { CustomerForm } from '@/common/models/customer.type';
 
 // バリデーションタイプ
 type Validate = {
@@ -63,4 +63,18 @@ export const validateCustomerPostForm = (
     }
   })
   return result
+}
+
+// ドキュメント登録画面のバリデーション
+export const validateDocumentPostForm = (
+  name: string,
+  file: File[]
+): Validate => {
+  if (!name) {
+    return { isSuccess: false, message: 'ドキュメント名を入力してください' }
+  }
+  if (!file[0]) {
+    return { isSuccess: false, message: 'ファイルを選択してください' }
+  }
+  return { isSuccess: true, message: '' }
 }
