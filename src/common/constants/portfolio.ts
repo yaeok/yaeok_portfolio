@@ -36,7 +36,7 @@ export const SERVICE = [
 export const SKILLS = [
   {
     name: 'Java',
-    experience: '約5年',
+    experience: '約1年',
     isExperience: true,
     remark: 'API開発',
   },
