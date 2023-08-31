@@ -20,7 +20,7 @@ export const getUserInfoByUid = async (args: { uid: string }) => {
           const user: User = {
             uid: userData.uid,
             username: userData.username,
-            type: userData.type,
+            admin: userData.admin || false,
           }
 
           resolve(user)

@@ -31,7 +31,7 @@ export const AuthContextProvider = ({
           setUser({
             uid: user.uid,
             username: user.displayName!,
-            type: userInfo.type,
+            admin: userInfo.admin,
           })
         })
       } else {

@@ -34,9 +34,9 @@ export default function Header() {
     })
   }
   return (
-    <Box as='header' position={'sticky'} top={0} zIndex={'docked'}>
+    <Box as='header' position='sticky' top='0' zIndex='docked'>
       <Flex
-        bg='white'
+        bg='blackAlpha.800'
         color='gray.600'
         minH='60px'
         py={{ base: 2 }}
@@ -46,9 +46,15 @@ export default function Header() {
         borderColor='gray.200'
         align='center'
       >
-        <Flex flex={1} justify='space-between' maxW='container.xl' mx='auto'>
-          <Heading as='h1' size='lg'>
-            <NextLink href={INDEX.path}>developers</NextLink>
+        <Flex
+          flex={1}
+          justify='space-between'
+          maxW='container.xl'
+          mx='auto'
+          alignItems='center'
+        >
+          <Heading as='h1' size='lg' color='whiteAlpha.900'>
+            <NextLink href={INDEX.path}>やっぴの備蓄庫</NextLink>
           </Heading>
           {user === null ? null : (
             <Button
