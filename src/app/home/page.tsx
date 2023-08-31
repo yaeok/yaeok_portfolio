@@ -2,10 +2,28 @@
 import { useRouter } from 'next/navigation'
 
 import { SHOW_HOME } from '@/common/constants/path'
-import { Flex, Heading, List, ListItem, Tag } from '@/common/design'
+import {
+  Flex,
+  Heading,
+  keyframes,
+  List,
+  ListItem,
+  Tag,
+  usePrefersReducedMotion,
+} from '@/common/design'
+
+const fadeIn = keyframes`
+  from { opacity: 0;
+	transform: translateY(50px); }
+  to { opacity: 1;
+	transform: translateY(0); }
+`
 
 export default function HomeScreen() {
   const router = useRouter()
+  const prefersReducedMotion = usePrefersReducedMotion()
+  const animation = prefersReducedMotion ? undefined : `${fadeIn} 1s linear`
+
   return (
     <Flex
       flexDirection='column'
@@ -18,13 +36,16 @@ export default function HomeScreen() {
         {SHOW_HOME.map((value, index) => (
           <ListItem
             key={index}
+            display='block'
             marginY='5px'
             padding='10px 25px'
-            borderRadius='10px'
-            border='1px solid #E6E6E6'
+            borderRadius='md'
+            bg='white'
             cursor='pointer'
             onClick={() => router.push(value.path)}
-            _hover={{ bg: 'green.200' }}
+            transition='all 0.3s ease-in-out'
+            _hover={{ bg: 'blackAlpha.400' }}
+            animation={animation}
           >
             {value.name}
             {value.type ? (

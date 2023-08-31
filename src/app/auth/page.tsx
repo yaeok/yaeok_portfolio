@@ -1,15 +1,13 @@
 'use client'
-import NextLink from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSetRecoilState } from 'recoil'
 
-import { HOME, PORTFOLIO } from '@/common/constants/path'
 import {
-  Box,
   Button,
   Flex,
+  FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
   Input,
@@ -18,56 +16,55 @@ import {
   useToast,
   VStack,
 } from '@/common/design'
-import { messageState } from '@/common/states/message'
-import { validateLoginScreen } from '@/common/utils/validation'
 import Loading from '@/components/loading.component'
 import { signInWithEmail } from '@/lib/firebase/apis/auth'
 
-export default function LoginScreen() {
-  const { handleSubmit, register } = useForm()
-  const [show, setShow] = useState<boolean>(false)
-  const setMessage = useSetRecoilState(messageState)
-  const router = useRouter()
+// フォームで使用する変数の型を定義
+type formInputs = {
+  email: string
+  password: string
+}
+
+/** サインイン画面
+ * @screenname SignInScreen
+ * @description ユーザのサインインを行う画面
+ */
+export default function SignInScreen() {
   const toast = useToast()
+  const router = useRouter()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm<formInputs>()
+
+  const [show, setShow] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
   const onSubmit = handleSubmit(async (data) => {
     setLoading(true)
-    const error = validateLoginScreen(data.email, data.password)
-    if (error.isSuccess) {
-      await signInWithEmail({
-        email: data.email,
-        password: data.password,
-      }).then((res) => {
-        if (res.isSuccess) {
-          setMessage(true)
-          toast({
-            title: res.message,
-            status: 'success',
-            duration: 3000,
-            isClosable: true,
-          })
-          router.push(HOME.path)
-        } else {
-          toast({
-            title: res.message,
-            status: 'error',
-            duration: 3000,
-            isClosable: true,
-          })
-        }
-        setLoading(false)
-      })
-    } else {
-      toast({
-        title: error.message,
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
-    }
+    await signInWithEmail({
+      email: data.email,
+      password: data.password,
+    }).then((res) => {
+      if (res.isSuccess) {
+        router.push('/home')
+        toast({
+          title: 'ログインに成功しました',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
+      } else {
+        toast({
+          title: res.message,
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        })
+      }
+    })
   })
-
   return loading ? (
     <Loading />
   ) : (
@@ -79,23 +76,50 @@ export default function LoginScreen() {
       alignItems='center'
     >
       <VStack spacing='5'>
-        <Heading>ログイン画面</Heading>
+        <Heading>ログイン</Heading>
         <form onSubmit={onSubmit}>
           <VStack spacing='4' alignItems='left'>
-            <Box>
+            <FormControl isInvalid={Boolean(errors.email)}>
               <FormLabel htmlFor='email' textAlign='start'>
-                email
+                メールアドレス
               </FormLabel>
-              <Input id='email' {...register('email')} />
-            </Box>
+              <Input
+                id='email'
+                {...register('email', {
+                  required: '必須項目です',
+                  maxLength: {
+                    value: 50,
+                    message: '50文字以内で入力してください',
+                  },
+                  pattern: {
+                    value:
+                      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@+[a-zA-Z0-9-]+\.+[a-zA-Z0-9-]+$/,
+                    message: 'メールアドレスの形式が違います',
+                  },
+                })}
+              />
+              <FormErrorMessage>
+                {errors.email && errors.email.message}
+              </FormErrorMessage>
+            </FormControl>
 
-            <Box>
-              <FormLabel htmlFor='password'>password</FormLabel>
+            <FormControl isInvalid={Boolean(errors.password)}>
+              <FormLabel htmlFor='password'>パスワード</FormLabel>
               <InputGroup size='md'>
                 <Input
                   pr='4.5rem'
                   type={show ? 'text' : 'password'}
-                  {...register('password')}
+                  {...register('password', {
+                    required: '必須項目です',
+                    minLength: {
+                      value: 8,
+                      message: '8文字以上で入力してください',
+                    },
+                    maxLength: {
+                      value: 50,
+                      message: '50文字以内で入力してください',
+                    },
+                  })}
                 />
                 <InputRightElement width='4.5rem'>
                   <Button h='1.75rem' size='sm' onClick={() => setShow(!show)}>
@@ -103,27 +127,24 @@ export default function LoginScreen() {
                   </Button>
                 </InputRightElement>
               </InputGroup>
-            </Box>
+              <FormErrorMessage>
+                {errors.password && errors.password.message}
+              </FormErrorMessage>
+            </FormControl>
             <Button
               marginTop='4'
-              colorScheme='teal'
+              color='white'
+              bg='teal.400'
+              isLoading={isSubmitting}
               type='submit'
               paddingX='auto'
+              _hover={{
+                borderColor: 'transparent',
+                boxShadow: '0 7px 10px rgba(0, 0, 0, 0.3)',
+              }}
             >
               ログイン
             </Button>
-            <Flex width='100%' justifyContent='center'>
-              <Button
-                marginTop='20px'
-                as={NextLink}
-                width='100%'
-                bg='white'
-                _hover={{ bg: 'red.400', color: 'white' }}
-                href={PORTFOLIO.path}
-              >
-                ログインせずに閲覧する
-              </Button>
-            </Flex>
           </VStack>
         </form>
       </VStack>

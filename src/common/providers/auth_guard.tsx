@@ -34,7 +34,7 @@ export const AuthGuard = ({ children }: Props) => {
       })
     }
     return null
-  } else if (user.type !== 'admin') {
+  } else if (user.admin === false) {
     router.replace(PORTFOLIO.path)
     toast({
       title: 'アクセスできません。',

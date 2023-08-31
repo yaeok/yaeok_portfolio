@@ -7,6 +7,20 @@ export const CAREER = [
     description:
       'Salesforceエンジニアとして2年間プロジェクトに所属しておりました。\n主にSalesforceの標準機能を使用したCRM開発とカスタマイズ開発を行っていました。\nSalesforce開発において、Apex, Visualforce, LWC, SOQL, Lightning Platformを使用しております。',
   },
+  {
+    company: '株式会社リボルブ沖縄',
+    entry: '2019/04',
+    leave: '2021/03',
+    description:
+      'Salesforceエンジニアとして2年間プロジェクトに所属しておりました。\n主にSalesforceの標準機能を使用したCRM開発とカスタマイズ開発を行っていました。\nSalesforce開発において、Apex, Visualforce, LWC, SOQL, Lightning Platformを使用しております。',
+  },
+  {
+    company: '株式会社リボルブ沖縄',
+    entry: '2019/04',
+    leave: '2021/03',
+    description:
+      'Salesforceエンジニアとして2年間プロジェクトに所属しておりました。\n主にSalesforceの標準機能を使用したCRM開発とカスタマイズ開発を行っていました。\nSalesforce開発において、Apex, Visualforce, LWC, SOQL, Lightning Platformを使用しております。',
+  },
 ]
 
 /** 開発サービス */
@@ -86,7 +100,7 @@ export const LICENSE = [
 export const OUTPUT = [
   {
     title: 'Qiita',
-    link: 'https://qiita.com/yapp-dev',
+    link: 'https://qiita.com/yappi-dev',
   },
   {
     title: 'Zenn',
