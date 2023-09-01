@@ -17,17 +17,22 @@ export default function LineConnectScreen() {
   const getToken = async () => {
     var params = new URLSearchParams()
     params.append('grant_type', 'authorization_code')
+    // 生成されたコードをパラメータに追加
     params.append('code', code as string)
+    // リダイレクトURIをパラメータに追加
     params.append(
       'redirect_uri',
       `${process.env.NEXT_PUBLIC_DOMAIN}/line_connect`
     )
+    // クライアントIDをパラメータに追加
     params.append('client_id', process.env.NEXT_PUBLIC_CLIENT_ID as string)
+    // クライアントシークレットをパラメータに追加
     params.append(
       'client_secret',
       process.env.NEXT_PUBLIC_CLIENT_SECRET as string
     )
 
+    // アクセストークン生成
     const token = await axios.post(
       'https://api.line.me/oauth2/v2.1/token',
       params
@@ -35,16 +40,21 @@ export default function LineConnectScreen() {
 
     // IDトークンの検証
     var params_second = new URLSearchParams()
+    // 生成されたトークンをパラメータに追加
     params_second.append('id_token', token.data.id_token)
+    // クライアントIDをパラメータに追加
     params_second.append(
       'client_id',
       process.env.NEXT_PUBLIC_CLIENT_ID as string
     )
+    // アクセストークンの検証
     const userdata = await axios.post(
       'https://api.line.me/oauth2/v2.1/verify',
       params_second
     )
+    console.log(userdata)
 
+    // ユーザー情報の更新
     await updateUserInfoByLineId(userdata.data.sub).then((res) => {
       if (res.isSuccess) {
         toast({

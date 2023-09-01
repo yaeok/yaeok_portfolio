@@ -1,16 +1,11 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import NextLink from 'next/link';
+import { useRouter } from 'next/navigation';
 
-import { SHOW_HOME } from '@/common/constants/path'
+import { SHOW_HOME } from '@/common/constants/path';
 import {
-  Flex,
-  Heading,
-  keyframes,
-  List,
-  ListItem,
-  Tag,
-  usePrefersReducedMotion,
-} from '@/common/design'
+  Flex, Heading, keyframes, List, ListItem, Tag, usePrefersReducedMotion
+} from '@/common/design';
 
 const fadeIn = keyframes`
   from { opacity: 0;
@@ -35,6 +30,7 @@ export default function HomeScreen() {
       <List paddingY='10px'>
         {SHOW_HOME.map((value, index) => (
           <ListItem
+            as={NextLink}
             key={index}
             display='block'
             marginY='5px'
@@ -42,7 +38,7 @@ export default function HomeScreen() {
             borderRadius='md'
             bg='white'
             cursor='pointer'
-            onClick={() => router.push(value.path)}
+            href={value.path}
             transition='all 0.3s ease-in-out'
             _hover={{ bg: 'blackAlpha.400' }}
             animation={animation}
