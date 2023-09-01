@@ -1,6 +1,6 @@
-import NextLink from 'next/link'
+import NextLink from 'next/link';
 
-import { Flex, Text } from '@/common/design'
+import { Flex, Text } from '@/common/design';
 
 type Props = {
   title?: string
@@ -17,6 +17,7 @@ export default function CareerBoxComponent(props: Props) {
       shadow='md'
       rounded='md'
       transition={'all 0.3s'}
+      cursor='pointer'
       _hover={{
         top: '-5px',
         boxShadow: '10px 15px 10px rgba(0, 0, 0, 0.3)',

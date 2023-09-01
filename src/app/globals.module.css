@@ -1,5 +1,6 @@
 .body {
   font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', sans-serif;
+  background-color: rgb(238, 238, 238);
 }
 
 .body::-webkit-scrollbar {
