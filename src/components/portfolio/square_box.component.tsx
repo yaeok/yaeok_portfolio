@@ -1,6 +1,6 @@
-import NextLink from 'next/link'
+import NextLink from 'next/link';
 
-import { Flex } from '@/common/design'
+import { Flex } from '@/common/design';
 
 type Props = {
   title?: string
@@ -11,19 +11,20 @@ export default function SquareBoxComponent(props: Props) {
     <Flex
       width='200px'
       height='200px'
+      margin='15px'
+      alignItems='center'
+      justifyContent='center'
       as={NextLink}
+      target='_blank'
       href={props.url}
       bg='white'
       shadow='md'
-      rounded='md'
-      justifyContent='center'
-      alignItems='center'
+      rounded='lg'
       transition={'all 0.3s'}
       _hover={{
         top: '-5px',
         boxShadow: '10px 15px 10px rgba(0, 0, 0, 0.3)',
       }}
-      target='_blank'
     >
       {props.title}
     </Flex>
