@@ -64,19 +64,16 @@ export default function PortfolioScreen() {
         <Heading size='sm' bg='white' padding='15px 20px' borderRadius='10px'>
           開発サービス
         </Heading>
-        <ServiceCardComponent />
-        <List>
-          {SERVICE.map((service, index) => (
-            <ListItem key={index}>
-              <AccordionComponent
-                title={service.title}
-                link={service.link}
-                devlang={service.devlang}
-                description={service.description}
-              />
-            </ListItem>
-          ))}
-        </List>
+        {SERVICE.map((service, index) => (
+          <ServiceCardComponent
+            key={index}
+            index={index}
+            link={service.link}
+            title={service.title}
+            devlang={service.devlang}
+            description={service.description}
+          />
+        ))}
       </Flex>
       <Flex flexDirection='column' gap='10px'>
         <Heading size='sm' bg='white' padding='15px 20px' borderRadius='10px'>
