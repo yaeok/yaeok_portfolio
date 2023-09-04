@@ -1,12 +1,12 @@
 'use client'
-import NextLink from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useRecoilValue } from 'recoil';
+import NextLink from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useRecoilValue } from 'recoil'
 
-import { AUTH, INDEX } from '@/common/constants/path';
-import { Box, Button, Flex, Heading, useToast } from '@/common/design';
-import { userState } from '@/common/states/user';
-import { logout } from '@/lib/firebase/apis/auth';
+import { AUTH, INDEX } from '@/common/constants/path'
+import { Box, Button, Flex, Heading, useToast } from '@/common/design'
+import { userState } from '@/common/states/user'
+import { logout } from '@/lib/firebase/apis/auth'
 
 export default function Header() {
   const router = useRouter()
@@ -53,7 +53,7 @@ export default function Header() {
           mx='auto'
           alignItems='center'
         >
-          <Heading as='h1' size='lg' color='whiteAlpha.900'>
+          <Heading as='h1' size={{ sm: 'lg', lg: 'md' }} color='whiteAlpha.900'>
             <NextLink href={INDEX.path}>やっぴの備忘録</NextLink>
           </Heading>
           {user === null ? null : (

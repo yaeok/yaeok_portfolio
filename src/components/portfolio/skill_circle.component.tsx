@@ -1,9 +1,15 @@
-import NextLink from 'next/link';
+import NextLink from 'next/link'
 
 import {
-  Flex, Popover, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger,
-  Text
-} from '@/common/design';
+  Flex,
+  Popover,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Text,
+} from '@/common/design'
 
 type Props = {
   name: string
@@ -17,8 +23,8 @@ export default function SkillCircleComponent(props: Props) {
       <PopoverTrigger>
         <Flex
           flexDirection='column'
-          width='200px'
-          height='200px'
+          width={{ base: '150px', sm: '150px', lg: '200px' }}
+          height={{ base: '150px', sm: '150px', lg: '200px' }}
           shadow='lg'
           rounded='100px'
           margin='5px'
