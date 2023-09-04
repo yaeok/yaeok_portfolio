@@ -1,8 +1,15 @@
-import NextLink from 'next/link';
+import NextLink from 'next/link'
 
 import {
-  Flex, Heading, Popover, PopoverBody, PopoverContent, PopoverTrigger, Text
-} from '@/common/design';
+  Flex,
+  Popover,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Text,
+} from '@/common/design'
 
 type Props = {
   name: string
